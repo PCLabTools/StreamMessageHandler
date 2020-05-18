@@ -1,0 +1,19 @@
+{
+  "name": "StreamMessageHandler",
+  "keywords": "Serial, Event, State, Data, Machine",
+  "description": "Library abstracting stream communications to allow sending messages with state and data information, using callbacks to action states",
+  "url": "https://github.com/PCLabTools/StreamMessageHandler",
+  "include": "StreamMessageHandler",
+  "authors":
+  [
+    {
+      "name": "Larry Colvin"
+    }
+  ],
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/gitURL/StreamMessageHandler.git"
+  },
+  "frameworks": "arduino"
+}

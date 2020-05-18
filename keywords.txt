@@ -1,0 +1,35 @@
+#######################################
+# Syntax Coloring Map For StreamMessageHandler Library
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+StreamMessageHandler	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+begin	KEYWORD2
+registerState	KEYWORD2
+unregisterState	KEYWORD2
+getRegisteredStates	KEYWORD2
+run	KEYWORD2
+runState    KEYWORD2
+parameter	KEYWORD2
+sendMessage	KEYWORD2
+enable	KEYWORD2
+disable	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+state	LITERAL1
+EVENT_STRING		LITERAL1
+EVENT_COMPLETE	LITERAL1
+ENABLED	LITERAL1
+SMH_MAX_STATES	LITERAL1
+SMH_MAX_PARAMETERS	LITERAL1
