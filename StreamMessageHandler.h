@@ -11,14 +11,9 @@
 
   #define StreamMessageHandler_h
 
-  #ifndef SMH_MAX_STATES
-    #define SMH_MAX_STATES 10
-  #endif
-
-  #ifndef SMH_MAX_PARAMETERS
-    #define SMH_MAX_PARAMETERS 10
-  #endif
-
+  #define SMH_MAX_STATES 10
+  #define SMH_MAX_PARAMETERS 10
+  
   typedef state (*FUNCTION)(void);
 
   class StreamMessageHandler {

@@ -48,6 +48,7 @@ String StreamMessageHandler::getRegisteredStates() {
 }
 
 void StreamMessageHandler::run() {
+  // READ STREAM FOR MESSAGES
   if (ENABLED) {
     if (!EVENT_COMPLETE) {
       while (_streamRef.available()> 0) {
@@ -63,24 +64,27 @@ void StreamMessageHandler::run() {
     }
   }
   String eventState = "";
-  String eventData;
+  String eventData = "";
   bool stateActioned = false;
+  // WHEN MESSAGE RECEIVED, SPLIT MESSAGE INTO STATE/DATA
   if (EVENT_COMPLETE) {
     if (EVENT_STRING.indexOf(_DELIMITER) > 0) {
       if (EVENT_STRING.substring(EVENT_STRING.indexOf(_DELIMITER) + _DELIMITER.length()) != "") {
         eventState = EVENT_STRING.substring(0, EVENT_STRING.indexOf(_DELIMITER));
         eventData = EVENT_STRING.substring(EVENT_STRING.indexOf(_DELIMITER) + _DELIMITER.length());
-        int index = 0;
-        while (eventData.indexOf(_PARAMETER_DELIMITER) != -1) {
-          PARAMETER_ARRAY[index] = eventData.substring(0,eventData.indexOf(_PARAMETER_DELIMITER));
-          eventData = eventData.substring(eventData.indexOf(_PARAMETER_DELIMITER + _PARAMETER_DELIMITER.length()));
-          index++;
+        for (byte i=0 ; i<SMH_MAX_PARAMETERS ; i++) {
+          if (eventData.indexOf(_PARAMETER_DELIMITER) == -1) {
+            PARAMETER_ARRAY[i] = eventData;
+            break;
+          }
+          PARAMETER_ARRAY[i] = eventData.substring(0,eventData.indexOf(_PARAMETER_DELIMITER));
+          eventData = eventData.substring(eventData.indexOf(_PARAMETER_DELIMITER) + _PARAMETER_DELIMITER.length());
         }
-        PARAMETER_ARRAY[index] = eventData;
       }
     } else {
       eventState = EVENT_STRING;
     }
+    // ACTION THE STATE IF STATE NAME IS PRESENT IN STATENAMES[]:
     for(byte i=0; i<SMH_MAX_STATES; i++){
       if (eventState == STATENAMES[i]) {
         stateActioned = true;
@@ -94,6 +98,7 @@ void StreamMessageHandler::run() {
       String stateList = getRegisteredStates() + "getStates";
       println(stateList);
     } else {
+      // STATE DOES NOT EXIST, PRODUCE ERROR
       String errorMessage = "";
       if (PARAMETER_ARRAY[0] != "") {
         errorMessage += "ERROR - Unrecognised Event = " + eventState + " [Parameters: ";
@@ -113,6 +118,7 @@ void StreamMessageHandler::run() {
         println(errorMessage);
       }
     }
+    // RE-INITIALISE FLAGS TO READY FOR NEXT MESSAGE
     EVENT_COMPLETE = false;
     EVENT_STRING = "";
     for (int i=0 ; i<SMH_MAX_PARAMETERS ; i++) {
