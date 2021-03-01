@@ -35,7 +35,7 @@ void loop() {
   handler.runState(getTime);                                              // "getTime" has no parameters so no need to specify any
   String functionParameters[] = {"Arduino User"};                         // Create array of parameters to pass to "getGreeting" function
   handler.runState(getGreeting1, functionParameters, (sizeof(functionParameters)/sizeof(functionParameters[0])));
-  String functionParameters[] = {"1"};                                    // Create array of parameters to pass to "getGreeting" function
+  functionParameters[0] = {"1"};                                    // Create array of parameters to pass to "getGreeting" function
   handler.runState(getGreeting2, functionParameters, 1);
   delay(1000);
 }
